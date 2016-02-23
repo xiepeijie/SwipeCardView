@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="18dp"
+    android:layout_marginLeft="18dp"
+    android:layout_marginRight="18dp"
+    android:background="@drawable/home01_bg_card">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:contentDescription="@null"
+        android:id="@+id/portrait"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_margin="1px"
+        fresco:actualImageScaleType="centerCrop"
+        fresco:placeholderImage="@drawable/default_card"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="true"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="false"
+        fresco:roundedCornerRadius="14px"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="150dp"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="12dp" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#565656"
+            android:textSize="16sp"
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/education"
+            android:layout_below="@id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#565656"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text=""/>
+        <TextView
+            android:id="@+id/city"
+            android:layout_alignTop="@id/education"
+            android:layout_toLeftOf="@id/education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#565656"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text=""/>
+        <TextView
+            android:id="@+id/work_year"
+            android:layout_alignTop="@id/education"
+            android:layout_toRightOf="@id/education"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#565656"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:text=""/>
+
+        <CheckedTextView
+            android:id="@+id/favorite"
+            android:layout_below="@id/city"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home01_btn_collect"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:text=""/>
+    </RelativeLayout>
+
+</LinearLayout>

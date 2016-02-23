@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="me.payge.swipecardview.MainActivity">
+    <com.lorentzos.flingswipe.SwipeFlingAdapterView
+        android:id="@+id/swipe_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        swipe:min_adapter_stack="4"
+        swipe:max_visible="4"
+        swipe:y_offset_step="28dp"/>
+</RelativeLayout>
