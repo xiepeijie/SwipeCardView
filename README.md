@@ -16,7 +16,7 @@ thanks Diolor Swipecards
         swipe:max_visible="4"
         swipe:y_offset_step="28dp"/>
 ```
-### Java code：
+### Java Code：
 核心用法（即AdapterView的用法）
 ```
 swipeView = (SwipeFlingAdapterView) findViewById(R.id.swipe_view);
@@ -24,7 +24,7 @@ swipeView = (SwipeFlingAdapterView) findViewById(R.id.swipe_view);
         swipeView.setFlingListener(this);
         swipeView.setOnItemClickListener(this);
 ```
-onFlingListene的回调方法
+onFlingListener的回调方法
 ```
     @Override
     public void removeFirstObjectInAdapter() {
