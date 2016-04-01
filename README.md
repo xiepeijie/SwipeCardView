@@ -3,7 +3,7 @@ SwipeCard效果是基于Diolor的[Swipecards](https://github.com/Diolor/Swipecar
 thanks Diolor Swipecards  
 
 # Screenshot
-![效果图](https://github.com/xiepeijie/SwipeCardView/blob/master/ezgif.com-1.gif "Optional title")
+![](https://github.com/xiepeijie/SwipeCardView/blob/master/ezgif.com.gif "Optional title")
 
 # Usage
 ### XML配置：
