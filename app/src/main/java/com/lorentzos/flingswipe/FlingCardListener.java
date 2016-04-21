@@ -148,7 +148,9 @@ public class FlingCardListener implements View.OnTouchListener {
                 case MotionEvent.ACTION_UP:
                 case MotionEvent.ACTION_CANCEL:
                     //mActivePointerId = INVALID_POINTER_ID;
-                    aTouchUpX = event.getX(mActivePointerId);
+                    int pointerCount = event.getPointerCount();
+                    int activePointerId = Math.min(mActivePointerId,pointerCount - 1);
+                    aTouchUpX = event.getX(activePointerId);
                     mActivePointerId = INVALID_POINTER_ID;
                     resetCardViewOnStack(event);
 	                break;
