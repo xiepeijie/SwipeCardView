@@ -72,8 +72,8 @@ OnItemClickListener的回调方法
         }
     }
 ```
-也可参考[Swipecards](https://github.com/Diolor/Swipecards)，两者用法基本一致。  
+ 
 # About me
 微博：[@萧雾宇](http://weibo.com/payge)  
-Gmail：xiepeijieapp@gmail.com
+
 
