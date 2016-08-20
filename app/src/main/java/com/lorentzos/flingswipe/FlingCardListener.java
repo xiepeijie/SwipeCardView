@@ -55,8 +55,8 @@ public class FlingCardListener implements View.OnTouchListener {
         this.frame = frame;
         this.objectX = frame.getX();
         this.objectY = frame.getY();
-        this.objectH = frame.getHeight();
         this.objectW = frame.getWidth();
+        this.objectH = frame.getHeight();
         this.halfWidth = objectW/2f;
         this.dataObject = itemAtPosition;
         this.parentWidth = ((ViewGroup) frame.getParent()).getWidth();
@@ -68,6 +68,7 @@ public class FlingCardListener implements View.OnTouchListener {
         this.isNeedSwipe = isNeedSwipe;
     }
 
+    @Override
     public boolean onTouch(View view, MotionEvent event) {
     	
     	try {
@@ -149,7 +150,7 @@ public class FlingCardListener implements View.OnTouchListener {
                 case MotionEvent.ACTION_CANCEL:
                     //mActivePointerId = INVALID_POINTER_ID;
                     int pointerCount = event.getPointerCount();
-                    int activePointerId = Math.min(mActivePointerId,pointerCount - 1);
+                    int activePointerId = Math.min(mActivePointerId, pointerCount - 1);
                     aTouchUpX = event.getX(activePointerId);
                     mActivePointerId = INVALID_POINTER_ID;
                     resetCardViewOnStack(event);
@@ -363,6 +364,7 @@ public class FlingCardListener implements View.OnTouchListener {
         void onClick(MotionEvent event, View v, Object dataObject);
         void onScroll(float progress, float scrollXProgress);
     }
+
 
 }
 

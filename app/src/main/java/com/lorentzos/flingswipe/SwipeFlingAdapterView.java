@@ -6,11 +6,14 @@ import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.FrameLayout;
+
+import java.util.ArrayList;
 
 import me.payge.swipecardview.R;
 
@@ -23,6 +26,8 @@ import me.payge.swipecardview.R;
  */
 
 public class SwipeFlingAdapterView extends BaseFlingAdapterView {
+
+    private ArrayList<View> cacheItems = new ArrayList<>();
 
     //缩放层叠效果
     private int yOffsetStep; // view叠加垂直偏移量的步长
@@ -114,15 +119,18 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         mInLayout = true;
         final int adapterCount = mAdapter.getCount();
         if (adapterCount == 0) {
-            removeAllViewsInLayout();
+//            removeAllViewsInLayout();
+            removeAndAddToCache(0);
         } else {
             View topCard = getChildAt(LAST_OBJECT_IN_STACK);
             if(mActiveCard != null && topCard != null && topCard == mActiveCard) {
-                removeViewsInLayout(0, LAST_OBJECT_IN_STACK);
+//                removeViewsInLayout(0, LAST_OBJECT_IN_STACK);
+                removeAndAddToCache(1);
                 layoutChildren(1, adapterCount);
             }else{
                 // Reset the UI and set top view listener
-                removeAllViewsInLayout();
+//                removeAllViewsInLayout();
+                removeAndAddToCache(0);
                 layoutChildren(0, adapterCount);
                 setTopView();
             }
@@ -141,10 +149,23 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         }
     }
 
+    private void removeAndAddToCache(int remain) {
+        View view;
+        for (int i = 0; i < getChildCount() - remain; ) {
+            view = getChildAt(i);
+            removeViewInLayout(view);
+            cacheItems.add(view);
+        }
+    }
 
     private void layoutChildren(int startingIndex, int adapterCount){
         while (startingIndex < Math.min(adapterCount, MAX_VISIBLE) ) {
-            View newUnderChild = mAdapter.getView(startingIndex, null, this);
+            View item = null;
+            if (cacheItems.size() > 0) {
+                item = cacheItems.get(0);
+                cacheItems.remove(item);
+            }
+            View newUnderChild = mAdapter.getView(startingIndex, item, this);
             if (newUnderChild.getVisibility() != GONE) {
                 makeAndAddView(newUnderChild, startingIndex);
                 LAST_OBJECT_IN_STACK = startingIndex;
@@ -267,6 +288,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
                             @Override
                             public void onCardExited() {
+                                removeViewInLayout(mActiveCard);
                                 mActiveCard = null;
                             	mFlingListener.removeFirstObjectInAdapter();
                             }
@@ -289,6 +311,7 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
 
                             @Override
                             public void onScroll(float progress, float scrollXProgress) {
+//                                Log.e("Log", "onScroll " + progress);
                                 adjustChildrenOfUnderTopView(progress);
                         		mFlingListener.onScroll(progress, scrollXProgress);
                             }
