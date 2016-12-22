@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 
@@ -35,6 +36,9 @@ public class FlingCardListener implements View.OnTouchListener {
     // The active pointer is the one currently moving our object.
     private int mActivePointerId = INVALID_POINTER_ID;
     private View frame = null;
+
+    // Tell If the card has been removed
+    private boolean cardExited;
 
     private final int TOUCH_ABOVE = 0;
     private final int TOUCH_BELOW = 1;
@@ -74,6 +78,11 @@ public class FlingCardListener implements View.OnTouchListener {
     	try {
 	        switch (event.getAction() & MotionEvent.ACTION_MASK) {
 	            case MotionEvent.ACTION_DOWN:
+                    // cancel the ongoing animator in case the onAnimationEnd callback of the listener
+                    // is called twice if we fling out a card that is recovering,which means two cards
+                    // will be removed by one fling.
+                    // And besides that,when we press the recovering card,there would be one horrible flash.
+                    this.frame.animate().cancel();
 
 	                // Save the ID of this pointer
 	                mActivePointerId = event.getPointerId(0);
@@ -272,6 +281,11 @@ public class FlingCardListener implements View.OnTouchListener {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        // this callback could be triggered twice if we fling rapidly again
+                        // before a card disappear.So we'd better do something.
+                        if (cardExited)
+                            return;
+
                         if (isLeft) {
                             mFlingListener.onCardExited();
                             mFlingListener.leftExit(dataObject);
@@ -280,6 +294,7 @@ public class FlingCardListener implements View.OnTouchListener {
                             mFlingListener.rightExit(dataObject);
                         }
                         isAnimationRunning = false;
+                        cardExited = true;
                     }
                 }).start();
     }
