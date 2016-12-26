@@ -50,6 +50,11 @@ public class FlingCardListener implements View.OnTouchListener {
     private int animDuration = 300;
     private float scale;
 
+    /**
+     * every time we touch down,we should stop the {@link #animRun}
+     */
+    private boolean resetAnimCanceled = false;
+
     public FlingCardListener(View frame, Object itemAtPosition, float rotation_degrees, FlingListener flingListener) {
         super();
         this.frame = frame;
@@ -75,6 +80,12 @@ public class FlingCardListener implements View.OnTouchListener {
 	        switch (event.getAction() & MotionEvent.ACTION_MASK) {
 	            case MotionEvent.ACTION_DOWN:
 
+                    // remove the listener because 'onAnimationEnd' will still be called if we cancel the animation.
+                    this.frame.animate().setListener(null);
+                    this.frame.animate().cancel();
+
+                    resetAnimCanceled = true;
+
 	                // Save the ID of this pointer
 	                mActivePointerId = event.getPointerId(0);
 	                final float x = event.getX(mActivePointerId);
@@ -85,12 +96,8 @@ public class FlingCardListener implements View.OnTouchListener {
 	                aDownTouchY = y;
 	                // to prevent an initial jump of the magnifier, aposX and aPosY must
 	                // have the values from the magnifier frame
-	                if (aPosX == 0) {
-	                    aPosX = frame.getX();
-	                }
-	                if (aPosY == 0) {
-	                    aPosY = frame.getY();
-	                }
+                    aPosX = frame.getX();
+                    aPosY = frame.getY();
 	
 	                if (y < objectH/2) {
 	                    touchPosition = TOUCH_ABOVE;
@@ -209,6 +216,7 @@ public class FlingCardListener implements View.OnTouchListener {
                             .start();
                     scale = getScrollProgress();
                     this.frame.postDelayed(animRun, 0);
+                    resetAnimCanceled = false;
                 }
                 aPosX = 0;
                 aPosY = 0;
@@ -227,7 +235,7 @@ public class FlingCardListener implements View.OnTouchListener {
         @Override
         public void run() {
             mFlingListener.onScroll(scale, 0);
-            if (scale > 0) {
+            if (scale > 0 && !resetAnimCanceled) {
                 scale = scale - 0.1f;
                 if (scale < 0)
                     scale = 0;
