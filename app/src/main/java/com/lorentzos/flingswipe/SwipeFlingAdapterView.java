@@ -335,8 +335,30 @@ public class SwipeFlingAdapterView extends BaseFlingAdapterView {
         this.MAX_VISIBLE = MAX_VISIBLE;
     }
 
-    public void setMinStackInAdapter(int MIN_ADAPTER_STACK){
+    public void setMinStackInAdapter(int MIN_ADAPTER_STACK) {
         this.MIN_ADAPTER_STACK = MIN_ADAPTER_STACK;
+    }
+
+    /**
+     * click to swipe left
+     */
+    public void swipeLeft() {
+        getTopCardListener().selectLeft();
+    }
+
+    public void swipeLeft(int duration) {
+        getTopCardListener().selectLeft(duration);
+    }
+
+    /**
+     * click to swipe right
+     */
+    public void swipeRight() {
+        getTopCardListener().selectRight();
+    }
+
+    public void swipeRight(int duration) {
+        getTopCardListener().selectRight(duration);
     }
 
     @Override

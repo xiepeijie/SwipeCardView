@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements SwipeFlingAdapterView.onFlingListener,
-        SwipeFlingAdapterView.OnItemClickListener {
+        SwipeFlingAdapterView.OnItemClickListener, View.OnClickListener {
 
     int [] headerIcons = {
             R.drawable.i1,
@@ -66,12 +66,24 @@ public class MainActivity extends AppCompatActivity implements SwipeFlingAdapter
 
 
         swipeView = (SwipeFlingAdapterView) findViewById(R.id.swipe_view);
-        //swipeView.setIsNeedSwipe(true);
-        swipeView.setFlingListener(this);
-        swipeView.setOnItemClickListener(this);
+        if (swipeView != null) {
+            swipeView.setIsNeedSwipe(true);
+            swipeView.setFlingListener(this);
+            swipeView.setOnItemClickListener(this);
 
-        adapter = new InnerAdapter();
-        swipeView.setAdapter(adapter);
+            adapter = new InnerAdapter();
+            swipeView.setAdapter(adapter);
+        }
+
+        View v = findViewById(R.id.swipeLeft);
+        if (v != null) {
+            v.setOnClickListener(this);
+        }
+        v = findViewById(R.id.swipeRight);
+        if (v != null) {
+            v.setOnClickListener(this);
+        }
+
     }
 
 
@@ -101,6 +113,19 @@ public class MainActivity extends AppCompatActivity implements SwipeFlingAdapter
 
     @Override
     public void onScroll(float progress, float scrollXProgress) {
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.swipeLeft:
+                swipeView.swipeLeft();
+                //swipeView.swipeLeft(250);
+                break;
+            case R.id.swipeRight:
+                swipeView.swipeRight();
+                //swipeView.swipeRight(250);
+        }
     }
 
     private void loadData() {
@@ -200,7 +225,6 @@ public class MainActivity extends AppCompatActivity implements SwipeFlingAdapter
                 holder.cityView = (TextView) convertView.findViewById(R.id.city);
                 holder.eduView = (TextView) convertView.findViewById(R.id.education);
                 holder.workView = (TextView) convertView.findViewById(R.id.work_year);
-                holder.collectView = (CheckedTextView) convertView.findViewById(R.id.favorite);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }

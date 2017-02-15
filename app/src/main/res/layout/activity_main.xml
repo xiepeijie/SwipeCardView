@@ -12,4 +12,31 @@
         swipe:min_adapter_stack="4"
         swipe:max_visible="4"
         swipe:y_offset_step="28dp"/>
+    <View
+        android:id="@+id/anchor"
+        android:layout_width="1dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="32dp"/>
+    <Button
+        android:id="@+id/swipeLeft"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_button"
+        android:layout_alignTop="@id/anchor"
+        android:layout_toLeftOf="@id/anchor"
+        android:layout_marginRight="56dp"
+        android:textColor="#ffffff"
+        android:text="left"/>
+    <Button
+        android:id="@+id/swipeRight"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_button"
+        android:layout_alignTop="@id/anchor"
+        android:layout_toRightOf="@id/anchor"
+        android:layout_marginLeft="56dp"
+        android:textColor="#ffffff"
+        android:text="right"/>
 </RelativeLayout>
