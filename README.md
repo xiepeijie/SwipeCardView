@@ -9,47 +9,58 @@ thanks Diolor Swipecards
 [SwipeAdapterView](https://github.com/xiepeijie/SwipeAdapterView)
 
 ## Usage
-### XML配置：
+### XML：
 ```
 <com.lorentzos.flingswipe.SwipeFlingAdapterView
-        android:id="@+id/swipe_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        swipe:min_adapter_stack="4"
-        swipe:max_visible="4"
-        swipe:y_offset_step="28dp"/>
+    android:id="@+id/swipe_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    swipe:min_adapter_stack="4"
+    swipe:max_visible="4"
+    swipe:y_offset_step="28dp"/>
 ```
 ### Java Code：
 ```
 swipeView = (SwipeFlingAdapterView) findViewById(R.id.swipe_view);
-        //swipeView.setIsNeedSwipe(true);// 是否开启swipe滑动效果，当不调用此方法设置时，默认开启。
-        swipeView.setFlingListener(this);
-        swipeView.setOnItemClickListener(this);
+    swipeView.setIsNeedSwipe(true);// 是否开启swipe滑动效果，当不调用此方法设置时，默认开启。
+    swipeView.setFlingListener(this);
+    swipeView.setOnItemClickListener(this);
 ```
-onFlingListener
+**onFlingListener**
 ```
-    @Override
-    public void removeFirstObjectInAdapter() {
-        adapter.remove(0);
-    }
+@Override
+public void removeFirstObjectInAdapter() {
+    adapter.remove(0);
+}
 
-    @Override
-    public void onLeftCardExit(Object dataObject) {
-        AppToast.show(this, "swipe left card");
-    }
+@Override
+public void onLeftCardExit(Object dataObject) {
+    // to do something
+}
 
-    @Override
-    public void onRightCardExit(Object dataObject) {
-        AppToast.show(this, "swipe right card");
-    }
+@Override
+public void onRightCardExit(Object dataObject) {
+    // to do something
+}
 
-    @Override
-    public void onAdapterAboutToEmpty(int itemsInAdapter) {
-        if (itemsInAdapter == 3) {
-            loadData();
-        }
+@Override
+public void onAdapterAboutToEmpty(int itemsInAdapter) {
+    if (itemsInAdapter == 3) {
+        loadData();
     }
+}
 ```
- 
+**Click to swipe**
+
+```
+@Override
+public void onClick(View v) {
+    // swipe left
+    swipeView.swipeLeft();
+    // swipe right
+    //swipeView.swipeRight();
+}
+```
+
 # About me
 微博：[@萧雾宇](http://weibo.com/payge)  
