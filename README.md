@@ -1,6 +1,7 @@
 # SwipeCardView
-SwipeCard效果是基于Diolor的[Swipecards](https://github.com/Diolor/Swipecards)控件改进实现，通过添加了滑动渐变层叠动画，达到更佳的滑动刷脸体验。  
-thanks Diolor Swipecards  
+SwipeCardView是基于Diolor的[Swipecards](https://github.com/Diolor/Swipecards)控件改进实现，SwipeCardView是一个优雅的刷脸控件，滑动刷脸伴随渐变层叠动画，带来前所未有的滑动刷脸体验。  
+
+thanks Diolor [Swipecards](https://github.com/Diolor/Swipecards)  
 
 ## Screenshot
 ![screen](https://github.com/xiepeijie/SwipeCardView/blob/master/ezgif.com.gif)
